@@ -1,3 +1,6 @@
+
+#if !UNITY
+
 using Xunit.Abstractions;
 
 namespace BunnyCDN.Net.Storage.Tests
@@ -12,3 +15,5 @@ namespace BunnyCDN.Net.Storage.Tests
         }
     }
 }
+
+#endif

@@ -1,0 +1,16 @@
+{
+  "name": "net.bunnycdn.storage",
+  "displayName": "BunnyCDN Storage",
+  "version": "1.0.5",
+  "unity": "2019.3",
+  "description": "The official .NET library used for interacting with the BunnyCDN Storage API.",
+  "keywords": [
+    "CDN",
+    "Bunny",
+    "Storage"
+  ],
+  "category": "",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
+  }
+}

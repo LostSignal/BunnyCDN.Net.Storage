@@ -1,3 +1,6 @@
+
+#if !UNITY
+
 using Xunit;
 
 
@@ -94,3 +97,5 @@ namespace BunnyCDN.Net.Storage.Tests
         }
     }
 }
+
+#endif

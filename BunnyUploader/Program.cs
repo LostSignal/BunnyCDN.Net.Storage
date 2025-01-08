@@ -1,4 +1,6 @@
-﻿
+
+#if !UNITY
+
 using ConsoleAppFramework;
 
 var consoleApp = ConsoleApp.Create();
@@ -10,3 +12,5 @@ consoleApp.Add("", (string storageZone, string apiAccessKey, string mainReplicat
 });
 
 consoleApp.Run(args);
+
+#endif

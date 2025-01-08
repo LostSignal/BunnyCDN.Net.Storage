@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,10 +13,10 @@ namespace BunnyCDN.Net.Storage
 
         public async Task UploadLocalDirectory(string directoryToUpload, string destinationFolder = null)
         {
-            Console.WriteLine($"Generating Local Manifest...");
+            this.Log($"Generating Local Manifest...");
             var localManifest = this.GenerateLocalManifest(directoryToUpload);
 
-            Console.WriteLine($"Downloading Remote Manifest...");
+            this.Log($"Downloading Remote Manifest...");
             var remoteManifest = await this.GetRemoteManifest(destinationFolder);
 
             bool didFilesChange = false;
@@ -33,7 +33,7 @@ namespace BunnyCDN.Net.Storage
                     string localFilePath = Path.Combine(directoryToUpload, relativePath).Replace("\\", "/");
                     string storagePath = this.CalculateDestinationPath(this.StorageZoneName, destinationFolder, relativePath);
 
-                    Console.WriteLine($"Uploading: {storagePath}");
+                    this.Log($"Uploading: {storagePath}");
                     await this.UploadAsync(localFilePath, storagePath, localSHA256Hash);
                     didFilesChange = true;
                 }
@@ -48,7 +48,7 @@ namespace BunnyCDN.Net.Storage
                 {
                     string storagePath = this.CalculateDestinationPath(this.StorageZoneName, destinationFolder, relativePath);
 
-                    Console.WriteLine($"Deleting: {storagePath}");
+                    this.Log($"Deleting: {storagePath}");
                     await this.DeleteObjectAsync(storagePath);
                     didFilesChange = true;
                 }
@@ -64,13 +64,13 @@ namespace BunnyCDN.Net.Storage
 
                 using (var manifestJsonStream = new MemoryStream(manifestJsonBytes))
                 {
-                    Console.WriteLine("Saving Manifest...");
+                    this.Log("Saving Manifest...");
                     await this.UploadAsync(manifestJsonStream, manifestJsonStoragePath, manifestJsonSha256Hash);
                 }
             }
             else
             {
-                Console.WriteLine("No Changes Detected...");
+                this.Log("No Changes Detected...");
             }
         }
 
@@ -119,6 +119,15 @@ namespace BunnyCDN.Net.Storage
             {
                 return new Dictionary<string, string>();
             }
+        }
+
+        private void Log(string message)
+        {
+#if !UNITY
+            Console.WriteLine(message);
+#else
+            UnityEngine.Debug.Log(message);
+#endif
         }
     }
 }
