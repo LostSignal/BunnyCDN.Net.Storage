@@ -3,6 +3,12 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Unity
+bin.meta
+obj.meta
+launchSettings.json.meta
+*.user.meta
+
 # User-specific files
 *.suo
 *.user
@@ -62,7 +68,6 @@ StyleCopReport.xml
 *_p.c
 *_i.h
 *.ilk
-*.meta
 *.obj
 *.iobj
 *.pch
