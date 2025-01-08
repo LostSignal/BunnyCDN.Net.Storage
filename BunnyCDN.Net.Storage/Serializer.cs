@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-#if NETSTANDARD2_0
-using Newtonsoft.Json;
-#else
-using System.Text.Json;
-#endif
+﻿using Newtonsoft.Json;
 
 namespace BunnyCDN.Net.Storage
 {
@@ -18,11 +12,7 @@ namespace BunnyCDN.Net.Storage
         /// <returns>The deserialized object</returns>
         public static T Deserialize<T>(string data)
         {
-#if NETSTANDARD2_0
             return JsonConvert.DeserializeObject<T>(data);
-#else
-            return JsonSerializer.Deserialize<T>(data);
-#endif
         }
 
         /// <summary>
@@ -32,11 +22,7 @@ namespace BunnyCDN.Net.Storage
         /// <returns>JSON serialized object</returns>
         public static string Serialize<T>(object value)
         {
-#if NETSTANDARD2_0
             return JsonConvert.SerializeObject(value);
-#else
-            return JsonSerializer.Serialize(value);
-#endif
         }
     }
 }
