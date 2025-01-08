@@ -30,14 +30,14 @@ namespace BunnyCDN.Net.Storage
         /// </summary>
         /// <param name="storageZoneName">The name of the storage zone to connect to</param>
         /// <param name="apiAccessKey">The API key to authenticate with</param>
-        public BunnyCDNStorage(string storageZoneName, string apiAccessKey, string mainReplicationRegion = "de", HttpMessageHandler handler = null)
+        public BunnyCDNStorage(string storageZoneName, string apiAccessKey, string mainReplicationRegion = "de", HttpMessageHandler handler = null, int timeoutInMinutes = 10)
         {
             this.ApiAccessKey = apiAccessKey;
             this.StorageZoneName = storageZoneName;
 
             // Initialize the HTTP Client
             _http = handler != null ? new HttpClient(handler) : new HttpClient();
-            _http.Timeout = new TimeSpan(0, 0, 120);
+            _http.Timeout = new TimeSpan(0, timeoutInMinutes, 0);
             _http.DefaultRequestHeaders.Add("AccessKey", this.ApiAccessKey);
             _http.BaseAddress = new Uri(this.GetBaseAddress(mainReplicationRegion));
         }
